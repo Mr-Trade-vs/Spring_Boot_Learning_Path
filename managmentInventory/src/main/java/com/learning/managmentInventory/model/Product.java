@@ -2,15 +2,12 @@ package com.learning.managmentInventory.model;
 
 import jakarta.annotation.*;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
 
     @Nonnull
@@ -21,6 +18,11 @@ public class Product {
 
     @Nonnull
     private double priceProduct;
+
+    
+
+    public Product() {
+    }
 
     public Product(String id, String nameProduct, int stockProduct, double priceProduct) {
         this.id = id;

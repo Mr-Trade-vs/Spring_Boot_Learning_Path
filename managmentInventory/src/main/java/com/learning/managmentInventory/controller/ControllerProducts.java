@@ -1,35 +1,39 @@
 package com.learning.managmentInventory.controller;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.learning.managmentInventory.exceptions.NotEmptyFields;
 import com.learning.managmentInventory.model.Product;
-import com.learning.managmentInventory.model.ProductStore;
+import com.learning.managmentInventory.model.ProductService;
 
-@RequestMapping("/products")
-@Service
+@Controller("/products")
 public class ControllerProducts {
     
-    private ProductStore repositoryProducts;
+    private final ProductService productManagment;
 
-    public ControllerProducts(ProductStore repositoryProducts) {
-        this.repositoryProducts = repositoryProducts;
+    public ControllerProducts(ProductService productManagment) {
+        this.productManagment = productManagment;
     }
 
-    @PostMapping("/addProduct")
-    public String addProduct (String id, String name, int stock, double price) {
-        try {
-            if ((!id.isEmpty() && id != null) && (!name.isEmpty() && name != null) && stock >= 0 && price >= 0) {
-                Product product = new Product(id, name, stock, price);
-                repositoryProducts.save(product);
-                return "Product succesfull added";
-            } else throw new NotEmptyFields("Be sure you fill all the camps, empty fields aren't allowed");
-        } catch (NotEmptyFields e) {
-            String explain = "One or more fields are empty, be sure all the fields are fill to save the product";
-            return explain;
-        }
+    @GetMapping("/form")
+    public String showForm(Model model) {
+        model.addAttribute("product", new Product());
+        return "product-form";
+    }
+
+    @PostMapping("/save")
+    public void saveDataProduct(Product product) {
+        productManagment.addProduct(product);
+    }
+
+    @GetMapping("/{id}")
+    public String getProduct(@PathVariable String id, Model model) {
+        Product product = productManagment.findProduct(id);
+        model.addAttribute("product", product);
+        return "product-info";
     }
 
 }
