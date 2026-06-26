@@ -13,9 +13,16 @@ public class ProductService {
         this.repositoryProdcuts = repositoryProdcuts;
     }
 
-    public void addProduct(Product product) {
+    public Product addProduct(Product product) {
         product = idGeneration(product);
-        repositoryProdcuts.save(product);
+
+        System.out.println(product.getId());
+        System.out.println(product.getNameProduct());
+
+        Product saved = repositoryProdcuts.save(product);
+
+        System.out.println("Guardado");
+        return saved;
     }
 
     public Product findProduct(String id) {
@@ -42,5 +49,13 @@ public class ProductService {
 
         product.setId(String.format("A%09d", updateNumber)); 
         return product;
+    }
+
+    public void deleteProduct(String id) {
+        repositoryProdcuts.deleteById(id);
+    }
+
+    public void updateProduct(Product product) {
+        repositoryProdcuts.save(product);
     }
 }

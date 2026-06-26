@@ -1,4 +1,4 @@
-package com.learning.managmentInventory.view;
+package com.learning.managmentInventory;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
