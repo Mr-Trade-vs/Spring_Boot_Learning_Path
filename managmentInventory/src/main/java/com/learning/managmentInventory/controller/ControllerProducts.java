@@ -2,10 +2,12 @@ package com.learning.managmentInventory.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.learning.managmentInventory.model.Product;
 import com.learning.managmentInventory.model.ProductService;
@@ -37,6 +39,21 @@ public class ControllerProducts {
         Product product = productManagment.findProduct(id);
         model.addAttribute("product", product);
         return "product-info";
+    }
+
+    @GetMapping("/search")
+    public String searchTemplate() {
+        return "found-product";
+    }
+    
+    @GetMapping("/searchProduct")
+    public String searchProduct(@RequestParam String id){
+        return "redirect:/products/" + id;
+    }
+
+    @DeleteMapping("/remove")
+    public void deleteProduct() {
+        
     }
 
 }

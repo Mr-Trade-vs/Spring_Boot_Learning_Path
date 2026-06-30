@@ -1,5 +1,7 @@
 package com.learning.managmentInventory.model;
 
+import com.learning.managmentInventory.exceptions.NotEmptyFields;
+
 import jakarta.annotation.*;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -25,10 +27,17 @@ public class Product {
     }
 
     public Product(String id, String nameProduct, int stockProduct, double priceProduct) {
-        this.id = id;
-        this.nameProduct = nameProduct;
-        this.stockProduct = stockProduct;
-        this.priceProduct = priceProduct;
+        try {
+            if (id.isEmpty() || nameProduct.isEmpty()) {
+                throw new NotEmptyFields("One of the fields are empty.");
+            }
+            this.id = id;
+            this.nameProduct = nameProduct;
+            this.stockProduct = stockProduct;
+            this.priceProduct = priceProduct;
+        } catch (NotEmptyFields e) {
+            // TODO: handle exception
+        }
     }
 
     public String getId() {

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search a Product</title>
+</head>
+<body>
+
+    <h2>Insert id product which're you searching</h2>
+    <form th:action="@{/products/searchProduct}" method="get">
+        <input type="text" name="id" id="id-product">
+
+        <button type="submit">Buscar</button>
+    </form>
+    
+</body>
+</html>

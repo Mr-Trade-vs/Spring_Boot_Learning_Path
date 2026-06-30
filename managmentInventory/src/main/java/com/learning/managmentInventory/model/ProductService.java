@@ -16,12 +16,7 @@ public class ProductService {
     public Product addProduct(Product product) {
         product = idGeneration(product);
 
-        System.out.println(product.getId());
-        System.out.println(product.getNameProduct());
-
         Product saved = repositoryProdcuts.save(product);
-
-        System.out.println("Guardado");
         return saved;
     }
 
