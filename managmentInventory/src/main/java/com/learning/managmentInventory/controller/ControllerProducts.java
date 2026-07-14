@@ -51,9 +51,12 @@ public class ControllerProducts {
         return "redirect:/products/" + id;
     }
 
-    @DeleteMapping("/remove")
-    public void deleteProduct() {
-        
+    @DeleteMapping("/remove/{id}")
+    public String deleteProduct(@PathVariable String id) {
+        System.out.println(id);
+        productManagment.deleteProduct(id);
+        System.out.println("Id enviado a eliminar");
+        return "redirect:/products/form";
     }
 
 }
