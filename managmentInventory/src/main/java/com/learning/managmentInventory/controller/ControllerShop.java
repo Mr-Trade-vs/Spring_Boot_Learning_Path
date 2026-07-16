@@ -23,12 +23,10 @@ public class ControllerShop {
     @GetMapping("/products")
     public String displayAvaibleProducts(Model model) {
         List<Product> productsToShow = shopCenter.displayAllTheProducts();
-        if (productsToShow.isEmpty() || productsToShow == null) return "no-info";
+        if (productsToShow == null || productsToShow.isEmpty()) return "no-info";
         else {
-            for (Product product : productsToShow) {
-                model.addAttribute(product.getId(), product);
-            }
-            return "shop-products";
+            model.addAttribute("productsToShow", productsToShow);
+            return "shop-products"; 
         }
     }
     
