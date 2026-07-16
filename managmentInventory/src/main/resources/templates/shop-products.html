@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Center</title>
+</head>
+<body>
+    <h1>Products in Stock:</h1>
+
+    <div th:each="product : ${listProducts}">
+        <h3 th:text="${product.nameProduct}"></h3>
+        <br>
+        <strong>Stock:</strong> <p th:text="${product.stockProduct}"></p>
+        <strong>Unitary Price:</strong> <p th:text="${product.priceProduct}"></p>
+    </div>
+</body>
+</html>
