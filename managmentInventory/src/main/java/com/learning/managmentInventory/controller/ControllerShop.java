@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.learning.managmentInventory.model.Product;
@@ -26,8 +28,14 @@ public class ControllerShop {
         if (productsToShow == null || productsToShow.isEmpty()) return "no-info";
         else {
             model.addAttribute("productsToShow", productsToShow);
+            model.addAttribute("productsInCart", shopCenter.productsInCart());
             return "shop-products"; 
         }
     }
-    
+
+    @PostMapping("/products/{id}")
+    public String addProductToCart(@PathVariable String id) {
+        if (id != null) shopCenter.addToCart(id);
+        return "redirect:/shop/products";
+    }    
 }

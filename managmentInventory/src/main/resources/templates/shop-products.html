@@ -13,9 +13,18 @@
             <h3 th:text="${product.nameProduct}"></h3>
             <strong>Stock:</strong> <p th:text="${product.stockProduct}"></p>
             <strong>Unitary Price:</strong> <p th:text="${product.priceProduct}"></p>
+
+            <form th:action="@{/shop/products/{id}(id=${product.id})}" method="post">
+                <button type="submit">Add To Cart</button>
+            </form>
             <br>
         </div>
     </th:block>
+
+    <div th:if="${productsInCart > 0}">
+        <Strong>Products in Cart:</Strong>
+        <p th:text="${productsInCart}"></p>
+    </div>
 
 </body>
 </html>

@@ -2,17 +2,23 @@ package com.learning.managmentInventory.model;
 
 import java.util.Stack;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class ShoppingCart {
 
     private Stack<Product> productsToShop;
+    private int quantityProducts;
 
     public ShoppingCart() {
         this.productsToShop = new Stack<Product>();
+        this.quantityProducts = 0;
     }
     
     public void addProductToCart(Product productToAdd) {
         if (productsToShop == null) this.productsToShop = new Stack<Product>();
-        else productsToShop.push(productToAdd);
+        productsToShop.push(productToAdd);
+        quantityProducts++;
     }
 
     public void removeProductOfCart(Product product) {
@@ -25,6 +31,7 @@ public class ShoppingCart {
         else {
             if (productsInCart.peek().equals(product)) {
                 productsInCart.pop();
+                quantityProducts--;
                 return productsInCart;
             } else {
                 Product current = productsInCart.pop();
@@ -36,7 +43,13 @@ public class ShoppingCart {
             }
         }
     }
-        
 
+    public int getQuantityProducts() {
+        return quantityProducts;
+    }
+
+    public void setQuantityProducts(int quantityProducts) {
+        this.quantityProducts = quantityProducts;
+    }
     
 }
