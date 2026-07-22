@@ -24,6 +24,11 @@
     <div th:if="${productsInCart > 0}">
         <Strong>Products in Cart:</Strong>
         <p th:text="${productsInCart}"></p>
+
+        <form th:action="@{/shop/details}" method="get">
+            <button type="submit">See Details</button>
+        </form>
+        
     </div>
 
 </body>

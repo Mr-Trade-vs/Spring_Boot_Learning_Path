@@ -1,43 +1,43 @@
 package com.learning.managmentInventory.model;
 
-import java.util.Stack;
-
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ShoppingCart {
 
-    private Stack<Product> productsToShop;
-    private int quantityProducts;
+    private List<Product> productsToShop;
+    private double totalToPay;
 
     public ShoppingCart() {
-        this.productsToShop = new Stack<Product>();
-        this.quantityProducts = 0;
+        this.productsToShop = new ArrayList<Product>();
+        this.totalToPay = 0;
     }
     
     public void addProductToCart(Product productToAdd) {
-        if (productsToShop == null) this.productsToShop = new Stack<Product>();
-        productsToShop.push(productToAdd);
-        quantityProducts++;
+        if (productsToShop == null) this.productsToShop = new ArrayList<Product>();
+        productsToShop.add(productToAdd);
+        totalToPay += productToAdd.getPriceProduct();
     }
 
     public void removeProductOfCart(Product product) {
-        if (productsToShop == null) this.productsToShop = new Stack<Product>();
+        if (productsToShop == null) this.productsToShop = new ArrayList<Product>();
         else productsToShop = removeProduct(product, productsToShop);
     }
 
-    private Stack<Product> removeProduct(Product product, Stack<Product> productsInCart) {
+    private List<Product> removeProduct(Product product, List<Product> productsInCart) {
         if (productsInCart.isEmpty()) return productsToShop;
         else {
-            if (productsInCart.peek().equals(product)) {
-                productsInCart.pop();
-                quantityProducts--;
+            if (productsInCart.getFirst().equals(product)) {
+                productsInCart.removeFirst();
+                totalToPay -= product.getPriceProduct();
                 return productsInCart;
             } else {
-                Product current = productsInCart.pop();
+                Product current = productsInCart.getFirst();
                 productsInCart = removeProduct(product, productsInCart);
 
-                productsInCart.push(current);
+                productsInCart.addFirst(current);
 
                 return productsInCart;
             }
@@ -45,11 +45,23 @@ public class ShoppingCart {
     }
 
     public int getQuantityProducts() {
-        return quantityProducts;
+        return productsToShop.size();
     }
 
-    public void setQuantityProducts(int quantityProducts) {
-        this.quantityProducts = quantityProducts;
+    public double getTotalToPay() {
+        return totalToPay;
+    }
+
+    public void setTotalToPay(double totalToPay) {
+        this.totalToPay = totalToPay;
+    }
+
+    public List<Product> getProductsToShop() {
+        return productsToShop;
+    }
+
+    public void setProductsToShop(List<Product> productsToShop) {
+        this.productsToShop = productsToShop;
     }
     
 }

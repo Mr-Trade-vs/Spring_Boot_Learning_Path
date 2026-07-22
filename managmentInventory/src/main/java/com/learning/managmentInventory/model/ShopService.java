@@ -33,7 +33,15 @@ public class ShopService {
         shoppingCart.addProductToCart(productToCart);
     }
 
-    public int productsInCart() {
+    public int howMuchProductsInCart() {
         return shoppingCart.getQuantityProducts();
+    }
+
+    public List<Product> productsInCart() {
+        return shoppingCart.getProductsToShop();
+    }
+
+    public double totalToPay() {
+        return shoppingCart.getTotalToPay();
     }
 }

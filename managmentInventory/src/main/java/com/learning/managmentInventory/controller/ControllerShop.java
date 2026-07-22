@@ -28,7 +28,7 @@ public class ControllerShop {
         if (productsToShow == null || productsToShow.isEmpty()) return "no-info";
         else {
             model.addAttribute("productsToShow", productsToShow);
-            model.addAttribute("productsInCart", shopCenter.productsInCart());
+            model.addAttribute("productsInCart", shopCenter.howMuchProductsInCart());
             return "shop-products"; 
         }
     }
@@ -37,5 +37,21 @@ public class ControllerShop {
     public String addProductToCart(@PathVariable String id) {
         if (id != null) shopCenter.addToCart(id);
         return "redirect:/shop/products";
-    }    
+    }
+
+    @GetMapping("/details")
+    public String showProductsInCart(Model model) {
+        List<Product> productsInCart = shopCenter.productsInCart();
+        if (productsInCart == null || productsInCart.isEmpty()) return "no-info";
+        else {
+            model.addAttribute("productsInCart", productsInCart);
+            showTotalToPay(model);
+        }
+        return "shop-now";
+    }
+
+    private void showTotalToPay(Model model) {
+        double totalToPay = shopCenter.totalToPay();
+        if (totalToPay > 0) model.addAttribute("totalToPay", totalToPay);
+    }
 }

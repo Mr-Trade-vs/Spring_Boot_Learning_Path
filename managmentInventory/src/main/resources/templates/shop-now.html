@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy now</title>
+</head>
+<body>
+    <h2>Products in Cart:</h2>
+
+    <div th:each="product : ${productsInCart}">
+        <p th:text="${product.nameProduct}"></p>
+        <Strong>Price:</Strong>
+        <p th:text="${product.priceProduct}"></p>
+    </div>
+
+    <div>
+        <Strong>Amount:</Strong>
+        <p th:text="${totalToPay}"></p>
+        <button>Buy now!</button>
+    </div>
+</body>
+</html>
